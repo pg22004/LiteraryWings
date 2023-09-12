@@ -176,7 +176,7 @@ namespace LiteraryWings.AccesoADatos
             using (var bdContexto = new DBContexto())
             {
                 var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
-                if (usuarioPassAnt.Password == usuario.Password)
+                if (usuarioPassAnt.Password == usuario.Password.Trim())
                 {
                     EncriptarMD5(pUsuario);
                     usuario.Password = pUsuario.Password;
