@@ -12,7 +12,7 @@ namespace LiteraryWings.AccesoADatos.Tests
     [TestClass()]
     public class UsuarioDALTests
     {
-        private static Usuario usuarioInicial = new Usuario { id = 2, IdRol = 1, Login = "JuanUser", Password = "12345" };
+        private static Usuario usuarioInicial = new Usuario { Id = 4, IdRol = 1, Login = "JuanUser", Password = "12345" };
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()
@@ -27,7 +27,7 @@ namespace LiteraryWings.AccesoADatos.Tests
             usuario.Estatus = (byte)Estatus_Usuario.INACTIVO;
             int result = await UsuarioDAL.CrearAsync(usuario);
             Assert.AreNotEqual(0, result);
-            usuarioInicial.id = usuario.id;
+            usuarioInicial.Id = usuario.Id;
             usuarioInicial.Password = password;
             usuarioInicial.Login = usuario.Login;
         }
@@ -36,7 +36,7 @@ namespace LiteraryWings.AccesoADatos.Tests
         public async Task T2ModificarAsyncTest()
         {
             var usuario = new Usuario();
-            usuario.id = usuarioInicial.id;
+            usuario.Id = usuarioInicial.Id;
             usuario.IdRol = usuarioInicial.IdRol;
             usuario.Nombre = "Juan";
             usuario.Apellido = "Lopez";
@@ -48,45 +48,80 @@ namespace LiteraryWings.AccesoADatos.Tests
         }
 
         [TestMethod()]
-        public async Task T3EliminarAsyncTest()
+        public async Task T3ObtenerPorIdAsyncTest()
         {
-            Assert.Fail();
+            var usuario = new Usuario();
+            usuario.Id = usuarioInicial.Id;
+            var resultUsuario = await UsuarioDAL.ObtenerPorIdAsync(usuario);
+            Assert.AreEqual(usuario.Id, resultUsuario.Id);
         }
 
         [TestMethod()]
-        public async Task T4ObtenerPorIdAsyncTest()
+        public async Task T4ObtenerTodosAsyncTest()
         {
-            Assert.Fail();
+            var resultUsuarios = await UsuarioDAL.ObtenerTodosAsync();
+            Assert.AreNotEqual(0, resultUsuarios.Count);
         }
 
         [TestMethod()]
-        public async Task T5ObtenerTodosAsyncTest()
+        public async Task T5BuscarAsyncTest()
         {
-            Assert.Fail();
+            var usuario = new Usuario();
+            usuario.IdRol = usuarioInicial.IdRol;
+            usuario.Nombre = "J";
+            usuario.Apellido = "l";
+            usuario.Login = "J";
+            usuario.Estatus = (byte)Estatus_Usuario.ACTIVO;
+            usuario.Top_Aux = 10;
+            var resultUsuarios = await UsuarioDAL.BuscarAsync(usuario);
+            Assert.AreNotEqual(0, resultUsuarios.Count);
         }
 
         [TestMethod()]
-        public async Task T6BuscarAsyncTest()
+        public async Task T6BuscarIncluirRolesAsyncTest()
         {
-            Assert.Fail();
+            var usuario = new Usuario();
+            usuario.IdRol = usuarioInicial.IdRol;
+            usuario.Nombre = "J";
+            usuario.Apellido = "l";
+            usuario.Login = "J";
+            usuario.Estatus = (byte)Estatus_Usuario.ACTIVO;
+            usuario.Top_Aux = 10;
+            var resultUsuarios = await UsuarioDAL.BuscarIncluirRolesAsync(usuario);
+            Assert.AreNotEqual(0, resultUsuarios.Count);
+            var ultimoUsuario = resultUsuarios.FirstOrDefault();
+            Assert.IsTrue(ultimoUsuario.Rol != null && usuario.IdRol == ultimoUsuario.Rol.Id);
         }
 
         [TestMethod()]
-        public async Task T7BuscarIncluirRolesAsyncTest()
+        public async Task T7CambiarPasswordAsyncTest()
         {
-            Assert.Fail();
+            var usuario = new Usuario();
+            usuario.Id = usuarioInicial.Id;
+            string passwordNuevo = "123456";
+            usuario.Password = passwordNuevo;
+            var result = await UsuarioDAL.CambiarPasswordAsync(usuario, usuarioInicial.Password);
+            Assert.AreNotEqual(0, result);
+            usuarioInicial.Password = passwordNuevo;
         }
 
         [TestMethod()]
         public async Task T8LoginAsyncTest()
         {
-            Assert.Fail();
+            var usuario = new Usuario();
+            usuario.Login = usuarioInicial.Login;
+            usuario.Password = usuarioInicial.Password;
+            var resultUsuario = await UsuarioDAL.LoginAsync(usuario);
+            Assert.AreEqual(usuario.Login, resultUsuario.Login);
         }
 
         [TestMethod()]
-        public async Task T9CambiarPasswordAsyncTest()
+        public async Task T9EliminarAsyncTest()
         {
-            Assert.Fail();
+            var usuario = new Usuario();
+            usuario.Id = usuarioInicial.Id;
+            int result = await UsuarioDAL.EliminarAsync(usuario);
+            Assert.AreNotEqual(0, result);
         }
     }
 }
