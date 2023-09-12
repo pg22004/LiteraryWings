@@ -30,6 +30,8 @@ namespace LiteraryWings.AccesoADatos
                 {
                     var sugerencia = await bdContexto.Sugerencia.FirstOrDefaultAsync(s => s.Id == pSugerencia.Id);
                     sugerencia.Nombre = pSugerencia.Nombre;
+                    sugerencia.Correo = pSugerencia.Correo;
+                    sugerencia.Comentario = pSugerencia.Comentario;
                     bdContexto.Update(sugerencia);
                     result = await bdContexto.SaveChangesAsync();
                 }
@@ -76,7 +78,13 @@ namespace LiteraryWings.AccesoADatos
                 if (!string.IsNullOrWhiteSpace(pSugerencia.Nombre))
                     pQuery = pQuery.Where(s => s.Nombre.Contains(pSugerencia.Nombre));
 
-                pQuery = pQuery.OrderByDescending(s => s.Id).AsQueryable();
+                if (!string.IsNullOrWhiteSpace(pSugerencia.Correo))
+                    pQuery = pQuery.Where(s => s.Correo.Contains(pSugerencia.Correo));
+
+                if (!string.IsNullOrWhiteSpace(pSugerencia.Comentario))
+                        pQuery = pQuery.Where(s => s.Comentario.Contains(pSugerencia.Comentario));
+
+            pQuery = pQuery.OrderByDescending(s => s.Id).AsQueryable();
 
                 if (pSugerencia.Top_Aux > 0)
                     pQuery = pQuery.Take(pSugerencia.Top_Aux).AsQueryable();
