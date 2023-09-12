@@ -23,11 +23,12 @@ namespace LiteraryWings.EntidadesDeNegocio
         [StringLength(30, ErrorMessage = "Maximo 30 caracteres")]
         public string Apellido { get; set; }
 
+        [Required(ErrorMessage = "La Fecha de nacimiento es obligatoria")]
         [Display(Name = "Fecha Nacimiento")]
-        [Required(ErrorMessage = "El Fecha es obligatoria")]
         public DateTime FechaNacimiento { get; set; }
 
         [Required(ErrorMessage = "La imagen es obligatoria")]
+        [Display(Name = "Imagen del Autor")]
         public string AutorImagen { get; set; }
 
         [NotMapped]
