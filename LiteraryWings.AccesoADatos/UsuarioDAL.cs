@@ -11,7 +11,6 @@ namespace LiteraryWings.AccesoADatos
 {
     public class UsuarioDAL
     {
-
         private static void EncriptarMD5(Usuario pUsuario)
         {
             using (var md5 = MD5.Create())
@@ -24,11 +23,11 @@ namespace LiteraryWings.AccesoADatos
             }
         }
 
-        private static async Task<bool> ExisteLogin(Usuario pUsuario, DBContexto pDBContext)
+        private static async Task<bool> ExisteLogin(Usuario pUsuario, DBContexto pDbContext)
         {
             bool result = false;
-            var loginUsuarioExiste = await pDBContext.Usuario.FirstOrDefaultAsync(s => s.Login == pUsuario.Login && s.id != pUsuario.id);
-            if (loginUsuarioExiste != null && loginUsuarioExiste.id > 0 && loginUsuarioExiste.Login == pUsuario.Login)
+            var loginUsuarioExiste = await pDbContext.Usuario.FirstOrDefaultAsync(s => s.Login == pUsuario.Login && s.Id != pUsuario.Id);
+            if (loginUsuarioExiste != null && loginUsuarioExiste.Id > 0 && loginUsuarioExiste.Login == pUsuario.Login)
                 result = true;
             return result;
         }
@@ -36,15 +35,15 @@ namespace LiteraryWings.AccesoADatos
         public static async Task<int> CrearAsync(Usuario pUsuario)
         {
             int result = 0;
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
-                bool existeLogin = await ExisteLogin(pUsuario, dbContexto);
+                bool existeLogin = await ExisteLogin(pUsuario, bdContexto);
                 if (existeLogin == false)
                 {
                     pUsuario.FechaRegistro = DateTime.Now;
                     EncriptarMD5(pUsuario);
-                    dbContexto.Add(pUsuario);
-                    result = await dbContexto.SaveChangesAsync();
+                    bdContexto.Add(pUsuario);
+                    result = await bdContexto.SaveChangesAsync();
                 }
                 else
                     throw new Exception("Login ya existe");
@@ -55,19 +54,19 @@ namespace LiteraryWings.AccesoADatos
         public static async Task<int> ModificarAsync(Usuario pUsuario)
         {
             int result = 0;
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
-                bool existeLogin = await ExisteLogin(pUsuario, dbContexto);
+                bool existeLogin = await ExisteLogin(pUsuario, bdContexto);
                 if (existeLogin == false)
                 {
-                    var usuario = await dbContexto.Usuario.FirstOrDefaultAsync(s => s.id == pUsuario.id);
+                    var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
                     usuario.IdRol = pUsuario.IdRol;
                     usuario.Nombre = pUsuario.Nombre;
                     usuario.Apellido = pUsuario.Apellido;
                     usuario.Login = pUsuario.Login;
                     usuario.Estatus = pUsuario.Estatus;
-                    dbContexto.Update(usuario);
-                    result = await dbContexto.SaveChangesAsync();
+                    bdContexto.Update(usuario);
+                    result = await bdContexto.SaveChangesAsync();
                 }
                 else
                     throw new Exception("Login ya existe");
@@ -78,11 +77,11 @@ namespace LiteraryWings.AccesoADatos
         public static async Task<int> EliminarAsync(Usuario pUsuario)
         {
             int result = 0;
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
-                var usuario = await dbContexto.Usuario.FirstOrDefaultAsync(s => s.id == pUsuario.id);
-                dbContexto.Usuario.Remove(usuario);
-                result = await dbContexto.SaveChangesAsync();
+                var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
+                bdContexto.Usuario.Remove(usuario);
+                result = await bdContexto.SaveChangesAsync();
             }
             return result;
         }
@@ -90,10 +89,9 @@ namespace LiteraryWings.AccesoADatos
         public static async Task<Usuario> ObtenerPorIdAsync(Usuario pUsuario)
         {
             var usuario = new Usuario();
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
-                usuario = await dbContexto.Usuario.FirstOrDefaultAsync(s => s.id == pUsuario.id);
-
+                usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
             }
             return usuario;
         }
@@ -101,24 +99,24 @@ namespace LiteraryWings.AccesoADatos
         public static async Task<List<Usuario>> ObtenerTodosAsync()
         {
             var usuarios = new List<Usuario>();
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
-                usuarios = await dbContexto.Usuario.ToListAsync();
+                usuarios = await bdContexto.Usuario.ToListAsync();
             }
             return usuarios;
         }
 
         internal static IQueryable<Usuario> QuerySelect(IQueryable<Usuario> pQuery, Usuario pUsuario)
         {
-            if (pUsuario.id > 0)
-                pQuery = pQuery.Where(s => s.id == pUsuario.id);
+            if (pUsuario.Id > 0)
+                pQuery = pQuery.Where(s => s.Id == pUsuario.Id);
             if (pUsuario.IdRol > 0)
                 pQuery = pQuery.Where(s => s.IdRol == pUsuario.IdRol);
-            if (!String.IsNullOrWhiteSpace(pUsuario.Nombre))
+            if (!string.IsNullOrWhiteSpace(pUsuario.Nombre))
                 pQuery = pQuery.Where(s => s.Nombre.Contains(pUsuario.Nombre));
-            if (!String.IsNullOrWhiteSpace(pUsuario.Apellido))
+            if (!string.IsNullOrWhiteSpace(pUsuario.Apellido))
                 pQuery = pQuery.Where(s => s.Apellido.Contains(pUsuario.Apellido));
-            if (!String.IsNullOrWhiteSpace(pUsuario.Login))
+            if (!string.IsNullOrWhiteSpace(pUsuario.Login))
                 pQuery = pQuery.Where(s => s.Login.Contains(pUsuario.Login));
             if (pUsuario.Estatus > 0)
                 pQuery = pQuery.Where(s => s.Estatus == pUsuario.Estatus);
@@ -128,7 +126,7 @@ namespace LiteraryWings.AccesoADatos
                 DateTime fechaFinal = fechaInicial.AddDays(1).AddMilliseconds(-1);
                 pQuery = pQuery.Where(s => s.FechaRegistro >= fechaInicial && s.FechaRegistro <= fechaFinal);
             }
-            pQuery = pQuery.OrderByDescending(s => s.id).AsQueryable();
+            pQuery = pQuery.OrderByDescending(s => s.Id).AsQueryable();
             if (pUsuario.Top_Aux > 0)
                 pQuery = pQuery.Take(pUsuario.Top_Aux).AsQueryable();
             return pQuery;
@@ -136,22 +134,22 @@ namespace LiteraryWings.AccesoADatos
 
         public static async Task<List<Usuario>> BuscarAsync(Usuario pUsuario)
         {
-            var usuarios = new List<Usuario>();
-            using (var dbContexto = new DBContexto())
+            var Usuarios = new List<Usuario>();
+            using (var bdContexto = new DBContexto())
             {
-                var select = dbContexto.Usuario.AsQueryable();
+                var select = bdContexto.Usuario.AsQueryable();
                 select = QuerySelect(select, pUsuario);
-                usuarios = await select.ToListAsync();
+                Usuarios = await select.ToListAsync();
             }
-            return usuarios;
+            return Usuarios;
         }
 
         public static async Task<List<Usuario>> BuscarIncluirRolesAsync(Usuario pUsuario)
         {
             var usuarios = new List<Usuario>();
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
-                var select = dbContexto.Usuario.AsQueryable();
+                var select = bdContexto.Usuario.AsQueryable();
                 select = QuerySelect(select, pUsuario).Include(s => s.Rol).AsQueryable();
                 usuarios = await select.ToListAsync();
             }
@@ -161,10 +159,10 @@ namespace LiteraryWings.AccesoADatos
         public static async Task<Usuario> LoginAsync(Usuario pUsuario)
         {
             var usuario = new Usuario();
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
                 EncriptarMD5(pUsuario);
-                usuario = await dbContexto.Usuario.FirstOrDefaultAsync(s => s.Login == pUsuario.Login &&
+                usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Login == pUsuario.Login &&
                 s.Password == pUsuario.Password && s.Estatus == (byte)Estatus_Usuario.ACTIVO);
             }
             return usuario;
@@ -172,25 +170,23 @@ namespace LiteraryWings.AccesoADatos
 
         public static async Task<int> CambiarPasswordAsync(Usuario pUsuario, string pPasswordAnt)
         {
-
             int result = 0;
             var usuarioPassAnt = new Usuario { Password = pPasswordAnt };
             EncriptarMD5(usuarioPassAnt);
-            using (var dbContexto = new DBContexto())
+            using (var bdContexto = new DBContexto())
             {
-                var usuario = await dbContexto.Usuario.FirstOrDefaultAsync(s => s.id == pUsuario.id);
+                var usuario = await bdContexto.Usuario.FirstOrDefaultAsync(s => s.Id == pUsuario.Id);
                 if (usuarioPassAnt.Password == usuario.Password)
                 {
                     EncriptarMD5(pUsuario);
                     usuario.Password = pUsuario.Password;
-                    dbContexto.Update(usuario);
-                    result = await dbContexto.SaveChangesAsync();
+                    bdContexto.Update(usuario);
+                    result = await bdContexto.SaveChangesAsync();
                 }
                 else
                     throw new Exception("El password actual es incorrecto");
             }
             return result;
-
         }
     }
 }
