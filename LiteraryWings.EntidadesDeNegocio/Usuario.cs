@@ -10,9 +10,8 @@ namespace LiteraryWings.EntidadesDeNegocio
 {
     public class Usuario
     {
-
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [ForeignKey("Rol")]
         [Required(ErrorMessage = "Rol es obligatorio")]
@@ -39,7 +38,7 @@ namespace LiteraryWings.EntidadesDeNegocio
         [Required(ErrorMessage = "Estatus es obligatorio")]
         public byte Estatus { get; set; }
 
-        [Display(Name = "Fecha Registro")]
+        [Display(Name = "Fecha registro")]
         public DateTime FechaRegistro { get; set; }
 
         public Rol Rol { get; set; }
@@ -48,7 +47,7 @@ namespace LiteraryWings.EntidadesDeNegocio
         public int Top_Aux { get; set; }
 
         [NotMapped]
-        [Required(ErrorMessage = "Confirmar el Password")]
+        [Required(ErrorMessage = "Confirmar el password")]
         [StringLength(32, ErrorMessage = "Password debe estar entre 5 a 32 caracteres", MinimumLength = 5)]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Password y confirmar password deben de ser iguales")]
@@ -62,4 +61,3 @@ namespace LiteraryWings.EntidadesDeNegocio
         INACTIVO = 2
     }
 }
-
