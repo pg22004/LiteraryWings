@@ -20,7 +20,7 @@ namespace LiteraryWings.AccesoADatos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=BDLiteraryWings.mssql.somee.com;persist security info=False;initial catalog=BDLiteraryWings");
+            optionsBuilder.UseSqlServer(@"Data Source=BDLiteraryWings.mssql.somee.com; Initial Catalog=BDLiteraryWings; User Id=LiteraryWings; Pwd=IMECS2023");
         }
     }
 }
