@@ -5,46 +5,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiteraryWings.EntidadesDeNegocio;
 
 namespace LiteraryWings.AccesoADatos.Tests
 {
     [TestClass()]
     public class EditorialDALTests
     {
+        private static Editorial editorialInicio = new Editorial { Id = 2 };
+
         [TestMethod()]
-        public void CrearAsyncTest()
+        public async Task T1CrearAsyncTest()
         {
-            Assert.Fail();
+            var editorial = new Editorial();
+            editorial.Nombre = "Administrador";
+            int result = await EditorialDAL.CrearAsync(editorial);
+            Assert.AreNotEqual(0, result);
+            editorialInicio.Id = editorial.Id;
         }
 
         [TestMethod()]
-        public void ModificarAsyncTest()
+        public async Task T2ModificarAsyncTest()
         {
-            Assert.Fail();
+            var editorial = new Editorial();
+            editorial.Id = editorialInicio.Id;
+            editorial.Nombre = "Admin";
+            int result = await EditorialDAL.ModificarAsync(editorial);
+            Assert.AreNotEqual(0, result); ;
         }
 
         [TestMethod()]
-        public void EliminarAsyncTest()
+        public async Task T3ObtenerPorIdAsyncTest()
         {
-            Assert.Fail();
+            var editorial = new Editorial();
+            editorial.Id = editorialInicio.Id;
+            var resultEditorial = await EditorialDAL.ObtenerPorIdAsync(editorial);
+            Assert.AreEqual(editorial.Id, resultEditorial.Id);
         }
 
         [TestMethod()]
-        public void ObtenerPorIdAsyncTest()
+        public async Task T4ObtenerTodosAsyncTest()
         {
-            Assert.Fail();
+            var resultEditorial = await EditorialDAL.ObtenerTodosAsync();
+            Assert.AreNotEqual(0, resultEditorial.Count);
         }
 
         [TestMethod()]
-        public void ObtenerTodosAsyncTest()
+        public async Task T5BuscarAsyncTest()
         {
-            Assert.Fail();
+            var editorial = new Editorial();
+            editorial.Nombre = "a";
+            editorial.Top_aux = 10;
+            var resultEditorial = await EditorialDAL.BuscarAsync(editorial);
+            Assert.AreNotEqual(0, resultEditorial.Count);
         }
 
         [TestMethod()]
-        public void BuscarAsyncTest()
+        public async Task T6EliminarAsyncTest()
         {
-            Assert.Fail();
+            var editorial = new Editorial();
+            editorial.Id = editorialInicio.Id;
+            int result = await EditorialDAL.EliminarAsync(editorial);
+            Assert.AreNotEqual(0, result);
         }
     }
 }
