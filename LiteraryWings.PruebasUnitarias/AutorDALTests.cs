@@ -21,6 +21,8 @@ namespace LiteraryWings.AccesoADatos.Tests
             autor.Nombre = "Edgar";
             autor.Apellido = "Allan Poe";
             autor.AutorImagen = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.m.wikipedia.org%2Fwiki%2FArchivo%3AEdgar_Allan_Poe_portrait_B.jpg&psig=AOvVaw1Suo1Sn3mEWFNqr4XS_Ilc&ust=1694663332101000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCLjY_InXpoEDFQAAAAAdAAAAABAD";
+            autor.Seudonimo = "Allan Poe";
+            autor.Nacionalidad = "Estadounidense";
             int result = await AutorDAL.CrearAsync(autor);
             Assert.AreNotEqual(0, result);
             autorInicial.Id = autor.Id;
@@ -34,6 +36,8 @@ namespace LiteraryWings.AccesoADatos.Tests
             autor.Nombre = "Allan";
             autor.Apellido = "Poe";
             autor.AutorImagen = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fhistoria.nationalgeographic.com.es%2Fa%2Fedgar-allan-poe-maestro-terror_14764&psig=AOvVaw1Suo1Sn3mEWFNqr4XS_Ilc&ust=1694663332101000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLjY_InXpoEDFQAAAAAdAAAAABAI";
+            autor.Seudonimo = "Allan Poe";
+            autor.Nacionalidad = "Boston, Massachusetts";
             int result = await AutorDAL.ModificarAsync(autor);
             Assert.AreNotEqual(0, result);
         }

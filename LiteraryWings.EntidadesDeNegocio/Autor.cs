@@ -30,6 +30,12 @@ namespace LiteraryWings.EntidadesDeNegocio
         [Display(Name = "Imagen del Autor")]
         public string AutorImagen { get; set; }
 
+        [StringLength(30, ErrorMessage = "Maximo 50 caracteres")]
+        public string Seudonimo { get; set; }
+
+        [StringLength(30, ErrorMessage = "Maximo 50 caracteres")]
+        public string Nacionalidad { get; set; }
+
         [NotMapped]
         public int Top_Aux { get; set; }
         public List<Libro> Libro { get; set; }
