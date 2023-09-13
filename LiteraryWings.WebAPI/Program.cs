@@ -14,7 +14,7 @@ builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DeptosES", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "LiteraryWings", Version = "v1" });
 
     // *** Incluir  JWT Authentication ***
     var jwtSecurityScheme = new OpenApiSecurityScheme
