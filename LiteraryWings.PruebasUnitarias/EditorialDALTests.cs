@@ -18,7 +18,7 @@ namespace LiteraryWings.AccesoADatos.Tests
         public async Task T1CrearAsyncTest()
         {
             var editorial = new Editorial();
-            editorial.Nombre = "Administrador";
+            editorial.Nombre = "IMECS";
             int result = await EditorialDAL.CrearAsync(editorial);
             Assert.AreNotEqual(0, result);
             editorialInicio.Id = editorial.Id;
@@ -29,7 +29,7 @@ namespace LiteraryWings.AccesoADatos.Tests
         {
             var editorial = new Editorial();
             editorial.Id = editorialInicio.Id;
-            editorial.Nombre = "Admin";
+            editorial.Nombre = "IMECS2";
             int result = await EditorialDAL.ModificarAsync(editorial);
             Assert.AreNotEqual(0, result); ;
         }
