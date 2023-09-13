@@ -5,64 +5,167 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LiteraryWings.EntidadesDeNegocio;
+
 
 namespace LiteraryWings.AccesoADatos.Tests
 {
     [TestClass()]
     public class LibroDALTests
     {
+        private static Libro libroInicial = new Libro { Id = 2, IdAutor = 1, IdCategoria = 1, IdEditorial = 1 };
+
         [TestMethod()]
-        public void CrearAsyncTest()
+        public async Task T1CrearAsyncTest()
         {
-            Assert.Fail();
+            var libro = new Libro();
+            libro.Nombre = "El mar de los monstruos";
+            //libro.FechaLanzamiento = 2008-05-06;
+            libro.IdAutor = libroInicial.IdAutor;
+            libro.IdCategoria = libroInicial.IdCategoria;
+            libro.IdEditorial = libroInicial.IdEditorial;
+            libro.Idioma = "Inglés";
+            libro.Paginas = 100;
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
+            libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
+            libro.ImagenIntroduccion = "https://mega.nz/file/seh2xRIK#oLKvKl5UB3whCb0wcxl7ibfulmAlbXyUIYnNjsAr5Jk";
+            int result = await LibroDAL.CrearAsync(libro);
+            Assert.AreNotEqual(0, result);
+            libroInicial.Id = libro.Id;
         }
 
         [TestMethod()]
-        public void ModificarAsyncTest()
+        public async Task T2ModificarAsyncTest()
         {
-            Assert.Fail();
+            var libro = new Libro();
+            libro.Id = libroInicial.Id;
+            libro.Nombre = "El mar de los monstruos - Rick Riordan";
+            //libro.FechaLanzamiento = 2008-05-06;
+            libro.IdAutor = libroInicial.IdAutor;
+            libro.IdCategoria = libroInicial.IdCategoria;
+            libro.IdEditorial = libroInicial.IdEditorial;
+            libro.Idioma = "Español";
+            libro.Paginas = 248;
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
+            libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
+            libro.ImagenIntroduccion = "https://mega.nz/file/seh2xRIK#oLKvKl5UB3whCb0wcxl7ibfulmAlbXyUIYnNjsAr5Jk";
+            int result = await LibroDAL.ModificarAsync(libro);
+            Assert.AreNotEqual(0, result);
+        }
+
+        
+        [TestMethod()]
+        public async Task T3ObtenerPorIdAsyncTest()
+        {
+            var libro = new Libro();
+            libro.Id = libroInicial.Id;
+            var resultMunicipios = await LibroDAL.ObtenerPorIdAsync(libro);
+            Assert.AreEqual(libro.Id, resultMunicipios.Id);
         }
 
         [TestMethod()]
-        public void EliminarAsyncTest()
+        public async Task T4ObtenerTodosAsyncTest()
         {
-            Assert.Fail();
+            var resultLibros = await LibroDAL.ObtenerTodosAsync();
+            Assert.AreNotEqual(0, resultLibros.Count);
         }
 
         [TestMethod()]
-        public void ObtenerPorIdAsyncTest()
+        public async Task T5BuscarAsyncTest()
         {
-            Assert.Fail();
+            var libro = new Libro();
+            libro.Nombre = "El mar de los monstruos - Rick Riordan";
+            //libro.FechaLanzamiento = 2008-05-06;
+            libro.IdAutor = libroInicial.IdAutor;
+            libro.IdCategoria = libroInicial.IdCategoria;
+            libro.IdEditorial = libroInicial.IdEditorial;
+            libro.Idioma = "Español";
+            libro.Paginas = 248;
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
+            libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
+            libro.ImagenIntroduccion = "https://mega.nz/file/seh2xRIK#oLKvKl5UB3whCb0wcxl7ibfulmAlbXyUIYnNjsAr5Jk";
+            libro.top_aux = 10;
+            var resultLibros = await LibroDAL.BuscarAsync(libro);
+            Assert.AreNotEqual(0, resultLibros.Count);
         }
 
         [TestMethod()]
-        public void ObtenerTodosAsyncTest()
+        public async Task T6BuscarIncluirAutorAsyncTest()
         {
-            Assert.Fail();
+            var libro = new Libro();
+            libro.Nombre = "El mar de los monstruos - Rick Riordan";
+            //libro.FechaLanzamiento = 2008-05-06;
+            libro.IdAutor = libroInicial.IdAutor;
+            libro.IdCategoria = libroInicial.IdCategoria;
+            libro.IdEditorial = libroInicial.IdEditorial;
+            libro.Idioma = "Español";
+            libro.Paginas = 248;
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
+            libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
+            libro.ImagenIntroduccion = "https://mega.nz/file/seh2xRIK#oLKvKl5UB3whCb0wcxl7ibfulmAlbXyUIYnNjsAr5Jk";
+            libro.top_aux = 10;
+            var resultLibros = await LibroDAL.BuscarIncluirAutorAsync(libro);
+            Assert.AreNotEqual(0, resultLibros.Count);
+            var ultimoLibro = resultLibros.FirstOrDefault();
+            Assert.IsTrue(ultimoLibro.Autor != null && libro.IdAutor == ultimoLibro.Autor.Id);
         }
 
         [TestMethod()]
-        public void BuscarAsyncTest()
+        public async Task T7BuscarIncluirCategoriaAsyncTest()
         {
-            Assert.Fail();
+            var libro = new Libro();
+            libro.Nombre = "El mar de los monstruos - Rick Riordan";
+            //libro.FechaLanzamiento = 2008-05-06;
+            libro.IdAutor = libroInicial.IdAutor;
+            libro.IdCategoria = libroInicial.IdCategoria;
+            libro.IdEditorial = libroInicial.IdEditorial;
+            libro.Idioma = "Español";
+            libro.Paginas = 248;
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
+            libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
+            libro.ImagenIntroduccion = "https://mega.nz/file/seh2xRIK#oLKvKl5UB3whCb0wcxl7ibfulmAlbXyUIYnNjsAr5Jk";
+            libro.top_aux = 10;
+            var resultLibros = await LibroDAL.BuscarIncluirCategoriaAsync(libro);
+            Assert.AreNotEqual(0, resultLibros.Count);
+            var ultimoLibro = resultLibros.FirstOrDefault();
+            Assert.IsTrue(ultimoLibro.Categoria != null && libro.IdCategoria == ultimoLibro.Categoria.id);
         }
 
         [TestMethod()]
-        public void BuscarIncluirAutorAsyncTest()
+        public async Task T8BuscarIncluirEditorialAsyncTest()
         {
-            Assert.Fail();
+            var libro = new Libro();
+            libro.Nombre = "El mar de los monstruos - Rick Riordan";
+            //libro.FechaLanzamiento = 2008-05-06;
+            libro.IdAutor = libroInicial.IdAutor;
+            libro.IdCategoria = libroInicial.IdCategoria;
+            libro.IdEditorial = libroInicial.IdEditorial;
+            libro.Idioma = "Español";
+            libro.Paginas = 248;
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
+            libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
+            libro.ImagenIntroduccion = "https://mega.nz/file/seh2xRIK#oLKvKl5UB3whCb0wcxl7ibfulmAlbXyUIYnNjsAr5Jk";
+            libro.top_aux = 10;
+            var resultLibros = await LibroDAL.BuscarIncluirEditorialAsync(libro);
+            Assert.AreNotEqual(0, resultLibros.Count);
+            var ultimoLibro = resultLibros.FirstOrDefault();
+            Assert.IsTrue(ultimoLibro.Editorial != null && libro.IdEditorial == ultimoLibro.Editorial.Id);
         }
 
         [TestMethod()]
-        public void BuscarIncluirCategoriaAsyncTest()
+        public async Task T9EliminarAsyncTest()
         {
-            Assert.Fail();
+            var libro = new Libro();
+            libro.Id = libroInicial.Id;
+            int result = await LibroDAL.EliminarAsync(libro);
+            Assert.AreNotEqual(0, result);
         }
 
-        [TestMethod()]
-        public void BuscarIncluirEditorialAsyncTest()
-        {
-            Assert.Fail();
-        }
     }
 }
