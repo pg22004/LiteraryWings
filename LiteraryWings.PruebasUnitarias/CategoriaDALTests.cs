@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LiteraryWings.AccesoADatos;
+using LiteraryWings.EntidadesDeNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,40 +12,62 @@ namespace LiteraryWings.AccesoADatos.Tests
     [TestClass()]
     public class CategoriaDALTests
     {
+        private static Categoria categoriaInicial = new Categoria { id = 2 };
+
         [TestMethod()]
-        public void CrearAsyncTest()
+        public async Task T1CrearAsyncTest()
         {
-            Assert.Fail();
+            var categoria = new Categoria();
+            categoria.Nombre = "Cienti";
+            int result = await CategoriaDAL.CrearAsync(categoria);
+            Assert.AreNotEqual(0, result);
+            categoriaInicial.id = categoria.id;
         }
 
         [TestMethod()]
-        public void ModificarAsyncTest()
+        public async Task T2ModificarAsyncTest()
         {
-            Assert.Fail();
+            var categoria = new Categoria();
+            categoria.id = categoriaInicial.id;
+            categoria.Nombre = "Cientificos";
+            int result = await CategoriaDAL.ModificarAsync(categoria);
+            Assert.AreNotEqual(0, result);
+        }
+    
+
+        [TestMethod()]
+        public async Task T3ObtenerPorIdAsyncTest()
+        {
+            var categoria = new Categoria();
+            categoria.id = categoriaInicial.id;
+            var resultCategoria = await CategoriaDAL.ObtenerPorIdAsync(categoria);
+            Assert.AreEqual(categoria.id, resultCategoria.id);
         }
 
         [TestMethod()]
-        public void EliminarAsyncTest()
+        public async Task T4ObtenerTodosAsyncTest()
         {
-            Assert.Fail();
+            var resultCategorias = await CategoriaDAL.ObtenerTodosAsync();
+            Assert.AreNotEqual(0, resultCategorias.Count);
         }
 
         [TestMethod()]
-        public void ObtenerPorIdAsyncTest()
+        public async Task T5BuscarAsyncTest()
         {
-            Assert.Fail();
+            var categoria = new Categoria();
+            categoria.Nombre = "e";
+            categoria.Top_Aux = 10;
+            var resultCategoria = await CategoriaDAL.BuscarAsync(categoria);
+            Assert.AreNotEqual(0, resultCategoria.Count);
         }
 
         [TestMethod()]
-        public void ObtenerTodosAsyncTest()
+        public async Task T6EliminarAsyncTest()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void BuscarAsyncTest()
-        {
-            Assert.Fail();
+            var categoria = new Categoria();
+            categoria.id = categoriaInicial.id;
+            int result = await CategoriaDAL.EliminarAsync(categoria);
+            Assert.AreNotEqual(0, result);
         }
     }
 }
