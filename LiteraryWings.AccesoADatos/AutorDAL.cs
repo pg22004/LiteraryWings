@@ -31,6 +31,8 @@ namespace LiteraryWings.AccesoADatos
                 autor.Apellido = pAutor.Apellido;
                 autor.FechaNacimiento = pAutor.FechaNacimiento;
                 autor.AutorImagen = pAutor.AutorImagen;
+                autor.Seudonimo = pAutor.Seudonimo;
+                autor.Nacionalidad = pAutor.Nacionalidad;
                 dbContexto.Update(autor);
                 result = await dbContexto.SaveChangesAsync();
             }
@@ -75,10 +77,10 @@ namespace LiteraryWings.AccesoADatos
                 pQuery = pQuery.Where(a => a.Id == pAutor.Id);
 
             if (!string.IsNullOrWhiteSpace(pAutor.Nombre))
-                pQuery = pQuery.Where(s => s.Nombre.Contains(pAutor.Nombre));
+                pQuery = pQuery.Where(a => a.Nombre.Contains(pAutor.Nombre));
 
             if (!string.IsNullOrWhiteSpace(pAutor.Nombre))
-                pQuery = pQuery.Where(s => s.Nombre.Contains(pAutor.Nombre));
+                pQuery = pQuery.Where(a => a.Nombre.Contains(pAutor.Nombre));
 
             if (pAutor.FechaNacimiento.Year > 1000)
             {
@@ -86,6 +88,12 @@ namespace LiteraryWings.AccesoADatos
                 DateTime fechaFinal = fechaInicial.AddDays(1).AddMilliseconds(-1);
                 pQuery = pQuery.Where(a => a.FechaNacimiento >= fechaInicial && a.FechaNacimiento <= fechaFinal);
             }
+
+            if (!string.IsNullOrWhiteSpace(pAutor.Seudonimo))
+                pQuery = pQuery.Where(a => a.Seudonimo.Contains(pAutor.Seudonimo));
+
+            if (!string.IsNullOrWhiteSpace(pAutor.Nacionalidad))
+                pQuery = pQuery.Where(a => a.Nacionalidad.Contains(pAutor.Nacionalidad));
 
             if (pAutor.Top_Aux > 0)
                 pQuery = pQuery.Take(pAutor.Top_Aux).AsQueryable();
