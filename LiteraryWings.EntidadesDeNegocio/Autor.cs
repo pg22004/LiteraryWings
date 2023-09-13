@@ -27,7 +27,6 @@ namespace LiteraryWings.EntidadesDeNegocio
         [Display(Name = "Fecha Nacimiento")]
         public DateTime FechaNacimiento { get; set; }
 
-        [Required(ErrorMessage = "La imagen es obligatoria")]
         [Display(Name = "Imagen del Autor")]
         public string AutorImagen { get; set; }
 
