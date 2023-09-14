@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace LiteraryWings.EntidadesDeNegocio
 {
@@ -38,6 +39,8 @@ namespace LiteraryWings.EntidadesDeNegocio
 
         [NotMapped]
         public int Top_Aux { get; set; }
+
+        [ValidateNever]
         public List<Libro> Libro { get; set; }
     }
 }
