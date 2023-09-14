@@ -56,7 +56,7 @@ namespace LiteraryWings.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Deelete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
