@@ -129,40 +129,40 @@ namespace LiteraryWings.AccesoADatos
         }
 
 
-        public static async Task<List<Libro>> BuscarIncluirAutorAsync(Libro pLibro)
+        public static async Task<List<Libro>> BuscarIncluirLLavesAsync(Libro pLibro)
         {
             var libros = new List<Libro>();
             using (var bdcontexto = new DBContexto())
             {
                 var select = bdcontexto.Libro.AsQueryable();
-                select = QuerySelect(select, pLibro).Include(l => l.Autor).AsQueryable();
+                select = QuerySelect(select, pLibro).Include(l => l.Autor).Include(l=> l.Categoria).Include(l=> l.Editorial).AsQueryable();
                 libros = await select.ToListAsync();
             }
             return libros;
         }
 
-        public static async Task<List<Libro>> BuscarIncluirCategoriaAsync(Libro pLibro)
-        {
-            var libros = new List<Libro>();
-            using (var bdcontexto = new DBContexto())
-            {
-                var select = bdcontexto.Libro.AsQueryable();
-                select = QuerySelect(select, pLibro).Include(l => l.Categoria).AsQueryable();
-                libros = await select.ToListAsync();
-            }
-            return libros;
-        }
+        //public static async Task<List<Libro>> BuscarIncluirCategoriaAsync(Libro pLibro)
+        //{
+        //    var libros = new List<Libro>();
+        //    using (var bdcontexto = new DBContexto())
+        //    {
+        //        var select = bdcontexto.Libro.AsQueryable();
+        //        select = QuerySelect(select, pLibro).Include(l => l.Categoria).AsQueryable();
+        //        libros = await select.ToListAsync();
+        //    }
+        //    return libros;
+        //}
 
-        public static async Task<List<Libro>> BuscarIncluirEditorialAsync(Libro pLibro)
-        {
-            var libros = new List<Libro>();
-            using (var bdcontexto = new DBContexto())
-            {
-                var select = bdcontexto.Libro.AsQueryable();
-                select = QuerySelect(select, pLibro).Include(l => l.Editorial).AsQueryable();
-                libros = await select.ToListAsync();
-            }
-            return libros;
-        }
+        //public static async Task<List<Libro>> BuscarIncluirEditorialAsync(Libro pLibro)
+        //{
+        //    var libros = new List<Libro>();
+        //    using (var bdcontexto = new DBContexto())
+        //    {
+        //        var select = bdcontexto.Libro.AsQueryable();
+        //        select = QuerySelect(select, pLibro).Include(l => l.Editorial).AsQueryable();
+        //        libros = await select.ToListAsync();
+        //    }
+        //    return libros;
+        //}
     }
 }

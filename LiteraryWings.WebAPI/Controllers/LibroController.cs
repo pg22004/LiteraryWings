@@ -83,8 +83,10 @@ namespace LiteraryWings.WebAPI.Controllers
             var option = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             string strLibro = JsonSerializer.Serialize(pLibro);
             Libro libro = JsonSerializer.Deserialize<Libro>(strLibro, option);
-            var libros = await libroBL.BuscarIncluirAutorAsync(libro);
+            var libros = await libroBL.BuscarIncluirLLavesAsync(libro);
             libros.ForEach(s => s.Autor.Libro = null); // Evitar la redundacia de datos
+            libros.ForEach(s => s.Categoria.Libro = null); // Evitar la redundacia de datos
+            libros.ForEach(s => s.Editorial.Libro = null); // Evitar la redundacia de datos
             return libros;
         }
 

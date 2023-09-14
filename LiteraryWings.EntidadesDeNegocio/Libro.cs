@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace LiteraryWings.EntidadesDeNegocio
 {
@@ -62,8 +63,13 @@ namespace LiteraryWings.EntidadesDeNegocio
 
 
         //propiedad de navegación
+        [ValidateNever]
         public Autor Autor { get; set; }
+
+        [ValidateNever]
         public Categoria Categoria { get; set; }
+
+        [ValidateNever]
         public Editorial Editorial { get; set; }
 
         //propiedades auxiliares

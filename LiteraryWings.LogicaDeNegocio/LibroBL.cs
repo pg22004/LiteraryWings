@@ -41,19 +41,19 @@ namespace LiteraryWings.LogicaDeNegocio
             return await LibroDAL.BuscarAsync(pLibro);
         }
 
-        public async Task<List<Libro>> BuscarIncluirAutorAsync(Libro pLibro)
+        public async Task<List<Libro>> BuscarIncluirLLavesAsync(Libro pLibro)
         {
-            return await LibroDAL.BuscarIncluirAutorAsync(pLibro);
+            return await LibroDAL.BuscarIncluirLLavesAsync(pLibro);
         }
 
-        public async Task<List<Libro>> BuscarIncluirCategoriaAsync(Libro pLibro)
-        {
-            return await LibroDAL.BuscarIncluirCategoriaAsync(pLibro);
-        }
+        //public async Task<List<Libro>> BuscarIncluirCategoriaAsync(Libro pLibro)
+        //{
+        //    return await LibroDAL.BuscarIncluirCategoriaAsync(pLibro);
+        //}
 
-        public async Task<List<Libro>> BuscarIncluirEditorialAsync(Libro pLibro)
-        {
-            return await LibroDAL.BuscarIncluirEditorialAsync(pLibro);
-        }
+        //public async Task<List<Libro>> BuscarIncluirEditorialAsync(Libro pLibro)
+        //{
+        //    return await LibroDAL.BuscarIncluirEditorialAsync(pLibro);
+        //}
     }
 }
