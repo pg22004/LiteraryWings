@@ -20,10 +20,10 @@ namespace LiteraryWings.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Editorial> Get(int Id)
+        public async Task<Editorial> Get(int id)
         {
             Editorial editorial = new Editorial();
-            editorial.Id = Id;
+            editorial.Id = id;
             return await editorialBL.ObtenerPorIdAsync(editorial);
         }
 
