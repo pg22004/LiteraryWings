@@ -1,5 +1,6 @@
 ﻿using LiteraryWings.EntidadesDeNegocio;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OData.Edm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,12 +83,8 @@ namespace LiteraryWings.AccesoADatos
             if (!string.IsNullOrWhiteSpace(pAutor.Nombre))
                 pQuery = pQuery.Where(a => a.Nombre.Contains(pAutor.Nombre));
 
-            if (pAutor.FechaNacimiento.Year > 1000)
-            {
-                DateTime fechaInicial = new DateTime(pAutor.FechaNacimiento.Year, pAutor.FechaNacimiento.Month, pAutor.FechaNacimiento.Day, 0, 0, 0);
-                DateTime fechaFinal = fechaInicial.AddDays(1).AddMilliseconds(-1);
-                pQuery = pQuery.Where(a => a.FechaNacimiento >= fechaInicial && a.FechaNacimiento <= fechaFinal);
-            }
+            if (!string.IsNullOrWhiteSpace(pAutor.FechaNacimiento))
+                pQuery = pQuery.Where(a => a.FechaNacimiento.Contains(pAutor.FechaNacimiento));
 
             if (!string.IsNullOrWhiteSpace(pAutor.Seudonimo))
                 pQuery = pQuery.Where(a => a.Seudonimo.Contains(pAutor.Seudonimo));
