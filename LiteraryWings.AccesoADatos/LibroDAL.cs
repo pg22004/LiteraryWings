@@ -93,12 +93,8 @@ namespace LiteraryWings.AccesoADatos
             if (!string.IsNullOrWhiteSpace(pLibro.Nombre))
                 pQuery = pQuery.Where(l => l.Nombre.Contains(pLibro.Nombre));
 
-            if (pLibro.FechaLanzamiento.Year > 1000)
-            {
-                DateTime fechaInicial = new DateTime(pLibro.FechaLanzamiento.Year, pLibro.FechaLanzamiento.Month, pLibro.FechaLanzamiento.Day, 0, 0, 0);
-                DateTime fechaFinal = fechaInicial.AddDays(1).AddMilliseconds(-1);
-                pQuery = pQuery.Where(l => l.FechaLanzamiento >= fechaInicial && l.FechaLanzamiento <= fechaFinal);
-            }
+            if (!string.IsNullOrWhiteSpace(pLibro.FechaLanzamiento))
+                pQuery = pQuery.Where(l => l.FechaLanzamiento.Contains(pLibro.FechaLanzamiento));
 
             if (!string.IsNullOrWhiteSpace(pLibro.Idioma))
                 pQuery = pQuery.Where(l => l.Idioma.Contains(pLibro.Idioma));

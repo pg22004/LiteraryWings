@@ -37,7 +37,7 @@ namespace LiteraryWings.EntidadesDeNegocio
 
         [Required(ErrorMessage = "La Fecha de Lanzamiento es obligatoria")]
         [Display(Name = "Fecha de Lanzamiento ")]
-        public DateTime FechaLanzamiento { get; set; }
+        public string FechaLanzamiento { get; set; }
 
         [Required(ErrorMessage = "El Idioma es obligatorio")]
         [MaxLength(30, ErrorMessage = "Máximo 30 caracteres")]
