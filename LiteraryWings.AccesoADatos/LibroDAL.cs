@@ -35,6 +35,7 @@ namespace LiteraryWings.AccesoADatos
                 libro.Idioma = pLibro.Idioma;
                 libro.Paginas = pLibro.Paginas;
                 libro.Descripcion = pLibro.Descripcion;
+                libro.Descripcion2 = pLibro.Descripcion2;
                 libro.ImagenPortada = pLibro.ImagenPortada;
                 libro.LinkDescarga = pLibro.LinkDescarga;
                 libro.ImagenIntroduccion = pLibro.ImagenIntroduccion;
@@ -101,6 +102,9 @@ namespace LiteraryWings.AccesoADatos
 
             if (!string.IsNullOrWhiteSpace(pLibro.Descripcion))
                 pQuery = pQuery.Where(l => l.Descripcion.Contains(pLibro.Descripcion));
+
+            if (!string.IsNullOrWhiteSpace(pLibro.Descripcion2))
+                pQuery = pQuery.Where(l => l.Descripcion2.Contains(pLibro.Descripcion2));
 
             if (pLibro.Paginas > 0)
                 pQuery = pQuery.Where(l => l.Paginas == pLibro.Paginas);

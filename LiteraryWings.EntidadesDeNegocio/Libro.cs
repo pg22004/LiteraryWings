@@ -47,7 +47,11 @@ namespace LiteraryWings.EntidadesDeNegocio
         public int Paginas { get; set; }
 
         [Required(ErrorMessage = "La Descripcion es obligatoria")]
+        [MaxLength(210, ErrorMessage = "Máximo 210 caracteres")]
         public string Descripcion { get; set; }
+
+        [Required(ErrorMessage = "La Descripcion 2 es obligatoria")]
+        public string Descripcion2 { get; set; }
 
         [Required(ErrorMessage = "La Imagen de Portada es obligatoria")]
         [Display(Name = "Imagen de Portada")]
