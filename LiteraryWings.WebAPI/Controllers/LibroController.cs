@@ -26,7 +26,11 @@ namespace LiteraryWings.WebAPI.Controllers
         {
             Libro libro = new Libro();
             libro.Id = id;
-            return await libroBL.ObtenerPorIdAsync(libro);
+            var libroEncontrado = await libroBL.ObtenerPorIdAsync(libro);
+            libroEncontrado.Autor.Libro = null;
+            libroEncontrado.Categoria.Libro = null;
+            libroEncontrado.Editorial.Libro = null;
+            return libroEncontrado;
         }
 
         [HttpPost]

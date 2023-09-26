@@ -62,7 +62,7 @@ namespace LiteraryWings.AccesoADatos
             var libro = new Libro();
             using (var bdcontexto = new DBContexto())
             {
-                libro = await bdcontexto.Libro.FirstOrDefaultAsync(l => l.Id == pLibro.Id);
+                libro = await bdcontexto.Libro.Include(l => l.Autor).Include(l => l.Categoria).Include(l => l.Editorial).FirstOrDefaultAsync(l => l.Id == pLibro.Id);
             }
             return libro;
         }
