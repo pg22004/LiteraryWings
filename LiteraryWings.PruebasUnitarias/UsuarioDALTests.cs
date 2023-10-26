@@ -12,7 +12,7 @@ namespace LiteraryWings.AccesoADatos.Tests
     [TestClass()]
     public class UsuarioDALTests
     {
-        private static Usuario usuarioInicial = new Usuario { Id = 1, IdRol = 1, Login = "Ili", Password = "ili1234" };
+        private static Usuario usuarioInicial = new Usuario { Id = 3, IdRol = 1, Login = "Ax", Password = "Ax1234" };
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()
@@ -21,7 +21,7 @@ namespace LiteraryWings.AccesoADatos.Tests
             usuario.IdRol = usuarioInicial.IdRol;
             usuario.Nombre = "juan";
             usuario.Apellido = "lopez";
-            usuario.Login = "juanUser";
+            usuario.Login = "juan";
             string password = "12345";
             usuario.Password = password;
             usuario.Estatus = (byte)Estatus_Usuario.INACTIVO;

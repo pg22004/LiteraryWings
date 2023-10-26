@@ -13,20 +13,20 @@ namespace LiteraryWings.AccesoADatos.Tests
     [TestClass()]
     public class LibroDALTests
     {
-        private static Libro libroInicial = new Libro { Id = 2, IdAutor = 1, IdCategoria = 1, IdEditorial = 1 };
+        private static Libro libroInicial = new Libro { Id = 4, IdAutor = 1, IdCategoria = 1, IdEditorial = 1 };
 
         [TestMethod()]
         public async Task T1CrearAsyncTest()
         {
             var libro = new Libro();
             libro.Nombre = "El mar de los monstruos";
-            //libro.FechaLanzamiento = 2008-05-06;
+            libro.FechaLanzamiento = "2008-05-06";
             libro.IdAutor = libroInicial.IdAutor;
             libro.IdCategoria = libroInicial.IdCategoria;
             libro.IdEditorial = libroInicial.IdEditorial;
             libro.Idioma = "Inglés";
             libro.Paginas = 100;
-            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo";
             libro.Descripcion2 = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto. Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
             libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
             libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
@@ -42,13 +42,13 @@ namespace LiteraryWings.AccesoADatos.Tests
             var libro = new Libro();
             libro.Id = libroInicial.Id;
             libro.Nombre = "El mar de los monstruos - Rick Riordan";
-            //libro.FechaLanzamiento = 2008-05-06;
+            libro.FechaLanzamiento = "2008-05-06";
             libro.IdAutor = libroInicial.IdAutor;
             libro.IdCategoria = libroInicial.IdCategoria;
             libro.IdEditorial = libroInicial.IdEditorial;
             libro.Idioma = "Español";
             libro.Paginas = 248;
-            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento";
             libro.Descripcion2 = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto. Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
             libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
             libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
@@ -79,13 +79,13 @@ namespace LiteraryWings.AccesoADatos.Tests
         {
             var libro = new Libro();
             libro.Nombre = "El mar de los monstruos - Rick Riordan";
-            //libro.FechaLanzamiento = 2008-05-06;
+            libro.FechaLanzamiento = "2008-05-06";
             libro.IdAutor = libroInicial.IdAutor;
             libro.IdCategoria = libroInicial.IdCategoria;
             libro.IdEditorial = libroInicial.IdEditorial;
             libro.Idioma = "Español";
             libro.Paginas = 248;
-            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento";
             libro.Descripcion2 = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto. Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
             libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
             libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
@@ -100,13 +100,13 @@ namespace LiteraryWings.AccesoADatos.Tests
         {
             var libro = new Libro();
             libro.Nombre = "El mar de los monstruos - Rick Riordan";
-            //libro.FechaLanzamiento = 2008-05-06;
+            libro.FechaLanzamiento = "2008-05-06";
             libro.IdAutor = libroInicial.IdAutor;
             libro.IdCategoria = libroInicial.IdCategoria;
             libro.IdEditorial = libroInicial.IdEditorial;
             libro.Idioma = "Español";
             libro.Paginas = 248;
-            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
+            libro.Descripcion = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento";
             libro.Descripcion2 = "Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto. Percy Jackson, que tiene quince años al final del libro, trata de detener a Luke Castellan y su ejército de invasores de llegar al Campamento Mestizo a través del laberinto de Dédalo, tratando de encontrar a Dédalo y convencerlo de no darle el hilo de Ariadna a Luke, que ayudaría a Luke a atravesar el laberinto.";
             libro.ImagenPortada = "https://mega.nz/file/wfIASIKZ#Jgq5JJQcESfe8zskRlynsb8HeeNvgHxXehYIATzajU4";
             libro.LinkDescarga = "https://mega.nz/file/lDh32baB#BfP7xbRubeAzJvLVqJ-wvpieffypoUjGxYXfm0xr55w";
